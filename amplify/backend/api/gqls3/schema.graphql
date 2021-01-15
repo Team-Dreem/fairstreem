@@ -1,0 +1,18 @@
+type Genre @model {
+  _id: ID
+  name: String
+}
+
+type Song @model {
+  id: ID!
+  title: String!
+  artist: String
+  description: String
+  image: String
+  price: Float
+  genre: Genre
+  tags: [String]
+  song_url: String
+  s3_object_key: String
+}
+

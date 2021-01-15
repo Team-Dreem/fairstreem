@@ -7,8 +7,8 @@ const typeDefs = gql`
   }
 
   type Song {
-    _id: ID
-    title: String
+    _id: ID!
+    title: String!
     artist: String
     description: String
     image: String
