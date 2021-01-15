@@ -38,6 +38,15 @@ const typeDefs = gql`
     orders: [Order]
   }
 
+  type Artist {
+    _id: ID
+    avatar: String
+    username: String!
+    email: String
+    songs: [Song]
+    followers: [User]
+  }
+
   type Auth {
     token: ID
     user: User

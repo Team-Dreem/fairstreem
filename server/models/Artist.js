@@ -30,10 +30,10 @@ const artistSchema = new Schema(
             ref: "Song",
         },
     ],
-    friends: [
+    followers: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Artist",
+        ref: "User",
       },
     ],
   },
@@ -59,8 +59,8 @@ artistSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-artistSchema.virtual('friendCount').get(function() {
-  return this.friends.length;
+artistSchema.virtual('followerCount').get(function() {
+  return this.followers.length;
 });
 
 const Artist = mongoose.model("Artist", artistSchema);

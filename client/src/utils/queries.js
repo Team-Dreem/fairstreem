@@ -150,7 +150,7 @@ export const QUERY_ARTIST = gql`
         price
         image
       }
-      friends {
+      followers {
         _id
         username
       }
