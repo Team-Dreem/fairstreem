@@ -1,9 +1,11 @@
 const db = require("./connection");
 const faker = require("faker");
-const { User, Song, Genre } = require("../models");
+const { Artist, User, Song, Genre } = require("../models");
 
 db.once("open", async () => {
+  await Artist.deleteMany();
   await Genre.deleteMany();
+  await Song.deleteMany();
 
   const genres = await Genre.insertMany([
     { name: "Rock/Alternative" },
@@ -17,9 +19,7 @@ db.once("open", async () => {
     { name: "Other" },
   ]);
 
-  console.log("genres seeded");
-
-  await Song.deleteMany();
+  // console.log("genres seeded");
 
   const songs = await Song.insertMany([
     {
@@ -48,7 +48,7 @@ db.once("open", async () => {
     },
   ]);
 
-  console.log("songs seeded");
+  // console.log("songs seeded");
 
   await User.deleteMany();
 
@@ -79,10 +79,10 @@ db.once("open", async () => {
   const userData = [];
 
   for (let i = 0; i < 50; i += 1) {
-    const avatar = "../../public/images/default.png";
+    const avatar = faker.internet.avatar();
     const username = faker.internet.userName();
-    const firstName = faker.internet.firstName();
-    const lastName = faker.internet.lastName();
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
     const email = faker.internet.email(username);
     const password = faker.internet.password();
 
@@ -91,23 +91,74 @@ db.once("open", async () => {
 
   const createdUsers = await User.collection.insertMany(userData);
 
-  console.log("users seeded");
+  // console.log("users seeded");
 
   // create artist data
   const artistData = [];
 
-  for (let i = 0; i < 50; i += 1) {
-    const avatar = "../../public/images/default.png";
-    const artistName = faker.internet.artistName();
-    const email = faker.internet.email(username);
+  for (let i = 0; i < 10; i += 1) {
+    const avatar = faker.internet.avatar();
+    const artistName = faker.random.words();
+    const email = faker.internet.email(artistName);
     const password = faker.internet.password();
 
-    userData.push({ username, email, password });
+    artistData.push({ avatar, artistName, email, password });
   }
 
-  const createdUsers = await User.collection.insertMany(userData);
+  const createdArtists = await Artist.collection.insertMany(artistData);
 
-  console.log("users seeded");
+  // console.log("artists seeded");
+
+  // create friends
+  for (let i = 0; i < 100; i += 1) {
+    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+    const { _id: userId } = createdUsers.ops[randomUserIndex];
+
+    let friendId = userId;
+
+    while (friendId === userId) {
+      const randomUserIndex = Math.floor(
+        Math.random() * createdUsers.ops.length
+      );
+      friendId = createdUsers.ops[randomUserIndex];
+    }
+
+    await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
+  }
+
+  // console.log("friends seeded");
+
+  // create songs
+  let createdSongs = [];
+  let songData = [];
+  for (let i = 0; i < 100; i += 1) {
+    const title = faker.random.words();
+
+    const randomArtistIndex = Math.floor(
+      Math.random() * createdArtists.ops.length
+    );
+    const { artistName, _id: artistId } = createdArtists.ops[randomArtistIndex];
+    console.log("ARTISTNAME:", artistName)
+    const artist = artistName;
+    const description = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const image = faker.random.image();
+    const price = faker.commerce.price();
+    const genre = genres[Math.floor(Math.random() * genres.length)]._id;
+    const tags = faker.lorem.word();
+    const song_url = faker.internet.url();
+    const s3_object_key = faker.internet.password();
+
+    songData.push({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
+
+    const createdSong = await Song.create(songData);
+
+    await Artist.updateOne(
+      { _id: artistId },
+      { $push: { songs: createdSong._id } }
+    );
+
+    createdSongs.push(createdSong);
+  }
 
   process.exit(0);
 });

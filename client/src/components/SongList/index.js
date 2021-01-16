@@ -5,7 +5,7 @@ import { UPDATE_SONGS } from '../../utils/actions';
 import { useQuery } from '@apollo/react-hooks';
 
 import SongItem from "../SongItem";
-import { QUERY_SONG, QUERY_ALL_SONGS } from "../../utils/queries";
+import { QUERY_SONGS, QUERY_ALL_SONGS } from "../../utils/queries";
 import spinner from "../../assets/spinner.gif"
 
 
@@ -27,7 +27,7 @@ const [state, dispatch] = useStoreContext();
 
 const { currentGenre } = state;
 
-const { loading, data } = useQuery(QUERY_SONG);
+const { loading, data } = useQuery(QUERY_SONGS);
 
 useEffect(() => {
   // if there's data to be stored

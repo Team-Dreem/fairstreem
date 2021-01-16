@@ -24,7 +24,7 @@ export const QUERY_ME = gql`
   }
 `;
 
-export const QUERY_SONG = gql`
+export const QUERY_SONGS = gql`
   query getSong($genre: ID) {
     song(genre: $genre) {
       _id
@@ -38,7 +38,7 @@ export const QUERY_SONG = gql`
         name
       }
       tags {
-
+        name
       }
       song_url
       s3_object_key
@@ -60,7 +60,7 @@ export const QUERY_SONGS_BY_GENRE = gql`
         name
       }
       tags {
-
+        name
       }
       song_url
       s3_object_key
@@ -82,7 +82,7 @@ export const QUERY_ALL_SONGS = gql`
         name
       }
       tags {
-
+        name
       }
       song_url
       s3_object_key

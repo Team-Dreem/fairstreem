@@ -10,7 +10,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 
-import { QUERY_SONG, QUERY_ALL_SONGS } from "../utils/queries";
+import { QUERY_SONGS, QUERY_ALL_SONGS } from "../utils/queries";
 import spinner from "../assets/spinner.gif";
 import Cart from "../components/Cart";
 

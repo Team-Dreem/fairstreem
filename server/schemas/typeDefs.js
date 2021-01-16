@@ -41,7 +41,7 @@ const typeDefs = gql`
   type Artist {
     _id: ID
     avatar: String
-    username: String!
+    artistName: String!
     email: String
     songs: [Song]
     followers: [User]
@@ -53,6 +53,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    artists: [Artist]
     genres: [Genre]
     songs(genre: ID, name: String): [Song]
     song(_id: ID!): Song
