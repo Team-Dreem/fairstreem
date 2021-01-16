@@ -5,7 +5,7 @@ import { UPDATE_SONGS } from '../../utils/actions';
 import { useQuery } from '@apollo/react-hooks';
 
 import SongItem from "../SongItem";
-import { QUERY_SONGS, QUERY_ALL_SONGS } from "../../utils/queries";
+import { QUERY_SONGS } from "../../utils/queries";
 import spinner from "../../assets/spinner.gif"
 
 
@@ -28,8 +28,10 @@ const [state, dispatch] = useStoreContext();
 const { currentGenre } = state;
 
 const { loading, data } = useQuery(QUERY_SONGS);
+console.log("DATA:", data);
 
 useEffect(() => {
+  console.log("TEST")
   // if there's data to be stored
   if (data) {
     // let's store it in the global state object
@@ -38,6 +40,7 @@ useEffect(() => {
       songs: data.songs
     });
 
+    console.log("DATA.SONGS:", data.songs);
     // but let's also take each song and save it to IndexedDB using the helper function 
     data.songs.forEach((song) => {
       idbPromise('songs', 'put', song);
@@ -62,10 +65,10 @@ function filterSongs() {
 
   return state.songs.filter(song => song.genre._id === currentGenre);
 }
-
+console.log("SONGS:", state.songs);
   return (
     <div className="my-2">
-      <h2>Our Songs:</h2>
+      <h2>Songs:</h2>
       {state.songs.length ? (
         <div className="flex-row">
             {filterSongs().map(song => (

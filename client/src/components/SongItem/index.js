@@ -8,7 +8,7 @@ import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 function SongItem(item) {
   const [state, dispatch] = useStoreContext();
 
-  const { image, name, _id, price, quantity } = item;
+  const { image, title, _id, price, artist  } = item;
 
   // const addToCart = () => {
   //   dispatch({
@@ -46,12 +46,12 @@ function SongItem(item) {
   return (
     <div className="card px-1 py-1">
       <Link to={`/songs/${_id}`}>
-        <img alt={name} src={`/images/${image}`} />
-        <p>{name}</p>
+        <img alt={title} src={`/images/${image}`} />
+        <p>{title}</p>
       </Link>
       <div>
         <div>
-          {quantity} {pluralize("item", quantity)} in stock
+          by {artist} 
         </div>
         <span>${price}</span>
       </div>

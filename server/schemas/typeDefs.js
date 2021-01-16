@@ -33,6 +33,7 @@ const typeDefs = gql`
     username: String!
     firstName: String
     lastName: String
+    password: String!
     email: String
     friends: [User]
     orders: [Order]
@@ -43,6 +44,7 @@ const typeDefs = gql`
     avatar: String
     artistName: String!
     email: String
+    password: String
     songs: [Song]
     followers: [User]
   }

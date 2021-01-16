@@ -15,7 +15,7 @@ export const QUERY_ME = gql`
         username
       }
       orders {
-        songs{
+        songs {
           _id
           title
         }
@@ -25,8 +25,8 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_SONGS = gql`
-  query getSong($genre: ID) {
-    song(genre: $genre) {
+  query getSongs($genre: ID) {
+    songs(genre: $genre) {
       _id
       title
       artist
@@ -37,11 +37,6 @@ export const QUERY_SONGS = gql`
         _id
         name
       }
-      tags {
-        name
-      }
-      song_url
-      s3_object_key
     }
   }
 `;

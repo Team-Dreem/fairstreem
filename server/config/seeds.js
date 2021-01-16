@@ -6,6 +6,7 @@ db.once("open", async () => {
   await Artist.deleteMany();
   await Genre.deleteMany();
   await Song.deleteMany();
+  await User.deleteMany();
 
   const genres = await Genre.insertMany([
     { name: "Rock/Alternative" },
@@ -130,7 +131,7 @@ db.once("open", async () => {
 
   // create songs
   let createdSongs = [];
-  let songData = [];
+  // let songData = [];
   for (let i = 0; i < 100; i += 1) {
     const title = faker.random.words();
 
@@ -148,9 +149,9 @@ db.once("open", async () => {
     const song_url = faker.internet.url();
     const s3_object_key = faker.internet.password();
 
-    songData.push({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
+    // songData.push({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
 
-    const createdSong = await Song.create(songData);
+    const createdSong = await Song.create({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
 
     await Artist.updateOne(
       { _id: artistId },
@@ -160,5 +161,5 @@ db.once("open", async () => {
     createdSongs.push(createdSong);
   }
 
-  process.exit(0);
+  process.exit();
 });
