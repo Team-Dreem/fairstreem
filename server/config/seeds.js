@@ -40,7 +40,19 @@ db.once("open", async () => {
       artist: "Jeff Warren Johnston",
       description:
         "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-      image: "JeffJohnston.jpg",
+      image: "Wild_Eyes.jpg",
+      price: 0.99,
+      genre: genres[2]._id,
+      tags: "outlaw",
+      song_url: "empty",
+      s3_object_key: "empty",
+    },
+    {
+      title: "El Toro",
+      artist: "Jeff Warren Johnston",
+      description:
+        "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+      image: "El_Toro.jpg",
       price: 0.99,
       genre: genres[2]._id,
       tags: "outlaw",

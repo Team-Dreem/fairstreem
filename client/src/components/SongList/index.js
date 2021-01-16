@@ -11,18 +11,6 @@ import spinner from "../../assets/spinner.gif"
 
 
 function SongList() {
-// function SongList({ currentGenre }) {
-//   const { loading, data } = useQuery(QUERY_SONG);
-
-//   const songs = data?.songs || [];
-
-//   function filterSongs() {
-//     if (!currentGenre) {
-//       return songs;
-//     }
-
-//     return songs.filter(song => song.genre._id === currentGenre);
-//   }
 const [state, dispatch] = useStoreContext();
 
 const { currentGenre } = state;
