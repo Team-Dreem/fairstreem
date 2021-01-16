@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fairstreem-dev-181839-authRole",
+      "UnauthRoleArn": "arn:aws:iam::984152259734:role/amplify-fairstreem-dev-181839-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::984152259734:role/amplify-fairstreem-dev-181839-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-fairstreem-dev-181839-deployment",
+      "UnauthRoleName": "amplify-fairstreem-dev-181839-unauthRole",
+      "StackName": "amplify-fairstreem-dev-181839",
+      "StackId": "arn:aws:cloudformation:us-east-2:984152259734:stack/amplify-fairstreem-dev-181839/392f8bb0-56c7-11eb-a148-06068880de44",
+      "AmplifyAppId": "dc69m9iq55fak"
+    },
+    "categories": {
+      "auth": {
+        "fairstreem020e8ae9": {}
+      }
+    }
+  }
+}

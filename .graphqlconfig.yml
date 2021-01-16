@@ -1,0 +1,13 @@
+projects:
+  gqls3:
+    schemaPath: client/src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: >-
+          /Users/jwj/Desktop/Desktop-Folders/projects/fairstreem/client/src/graphql

@@ -5,14 +5,14 @@ import { UPDATE_SONGS } from '../../utils/actions';
 import { useQuery } from '@apollo/react-hooks';
 
 import SongItem from "../SongItem";
-import { QUERY_SONGS } from "../../utils/queries";
+import { QUERY_SONGS, QUERY_ALL_SONGS } from "../../utils/queries";
 import spinner from "../../assets/spinner.gif"
 
 
 
 function SongList() {
 // function SongList({ currentGenre }) {
-//   const { loading, data } = useQuery(QUERY_SONGS);
+//   const { loading, data } = useQuery(QUERY_SONG);
 
 //   const songs = data?.songs || [];
 
@@ -77,8 +77,8 @@ function filterSongs() {
                   description={song.description}
                   image={song.image}
                   price={song.price}
-                  genre={song.genre}
-                  tags={song.tags}
+                  // genre={song.genre}
+                  // tags={song.tags}
                 />
             ))}
         </div>

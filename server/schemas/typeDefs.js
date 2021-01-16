@@ -7,8 +7,8 @@ const typeDefs = gql`
   }
 
   type Song {
-    _id: ID
-    title: String
+    _id: ID!
+    title: String!
     artist: String
     description: String
     image: String
@@ -38,12 +38,22 @@ const typeDefs = gql`
     orders: [Order]
   }
 
+  type Artist {
+    _id: ID
+    avatar: String
+    artistName: String!
+    email: String
+    songs: [Song]
+    followers: [User]
+  }
+
   type Auth {
     token: ID
     user: User
   }
 
   type Query {
+    artists: [Artist]
     genres: [Genre]
     songs(genre: ID, name: String): [Song]
     song(_id: ID!): Song

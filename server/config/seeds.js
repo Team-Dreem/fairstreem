@@ -1,24 +1,25 @@
 const db = require("./connection");
-const { User, Song, Genre } = require("../models");
+const faker = require("faker");
+const { Artist, User, Song, Genre } = require("../models");
 
 db.once("open", async () => {
+  await Artist.deleteMany();
   await Genre.deleteMany();
+  await Song.deleteMany();
 
   const genres = await Genre.insertMany([
-    { name: 'Rock/Alternative' },
-    { name: 'R&B' },
-    { name: 'Country' },
-    { name: 'Hip-hop/Rap' },
-    { name: 'Electronic' },
-    { name: 'Jazz' },
-    { name: 'Blues' },
-    { name: 'Classical' },
-    { name: 'Other' }
+    { name: "Rock/Alternative" },
+    { name: "R&B" },
+    { name: "Country" },
+    { name: "Hip-hop/Rap" },
+    { name: "Electronic" },
+    { name: "Jazz" },
+    { name: "Blues" },
+    { name: "Classical" },
+    { name: "Other" },
   ]);
 
-  console.log('genres seeded');
-
-  await Song.deleteMany();
+  // console.log("genres seeded");
 
   const songs = await Song.insertMany([
     {
@@ -30,6 +31,8 @@ db.once("open", async () => {
       price: 0.99,
       genre: genres[0]._id,
       tags: "indie",
+      song_url: "empty",
+      s3_object_key: "empty",
     },
     {
       title: "Wild Eyes",
@@ -40,10 +43,12 @@ db.once("open", async () => {
       price: 0.99,
       genre: genres[2]._id,
       tags: "outlaw",
+      song_url: "empty",
+      s3_object_key: "empty",
     },
   ]);
 
-  console.log("songs seeded");
+  // console.log("songs seeded");
 
   await User.deleteMany();
 
@@ -62,6 +67,7 @@ db.once("open", async () => {
   });
 
   await User.create({
+    avatar: null,
     username: "EH42",
     firstName: "Elijah",
     lastName: "Holt",
@@ -69,7 +75,90 @@ db.once("open", async () => {
     password: "password12345",
   });
 
-  console.log("users seeded");
+  // create user data
+  const userData = [];
 
-  process.exit();
+  for (let i = 0; i < 50; i += 1) {
+    const avatar = faker.internet.avatar();
+    const username = faker.internet.userName();
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const email = faker.internet.email(username);
+    const password = faker.internet.password();
+
+    userData.push({ avatar, username, firstName, lastName, email, password });
+  }
+
+  const createdUsers = await User.collection.insertMany(userData);
+
+  // console.log("users seeded");
+
+  // create artist data
+  const artistData = [];
+
+  for (let i = 0; i < 10; i += 1) {
+    const avatar = faker.internet.avatar();
+    const artistName = faker.random.words();
+    const email = faker.internet.email(artistName);
+    const password = faker.internet.password();
+
+    artistData.push({ avatar, artistName, email, password });
+  }
+
+  const createdArtists = await Artist.collection.insertMany(artistData);
+
+  // console.log("artists seeded");
+
+  // create friends
+  for (let i = 0; i < 100; i += 1) {
+    const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+    const { _id: userId } = createdUsers.ops[randomUserIndex];
+
+    let friendId = userId;
+
+    while (friendId === userId) {
+      const randomUserIndex = Math.floor(
+        Math.random() * createdUsers.ops.length
+      );
+      friendId = createdUsers.ops[randomUserIndex];
+    }
+
+    await User.updateOne({ _id: userId }, { $addToSet: { friends: friendId } });
+  }
+
+  // console.log("friends seeded");
+
+  // create songs
+  let createdSongs = [];
+  let songData = [];
+  for (let i = 0; i < 100; i += 1) {
+    const title = faker.random.words();
+
+    const randomArtistIndex = Math.floor(
+      Math.random() * createdArtists.ops.length
+    );
+    const { artistName, _id: artistId } = createdArtists.ops[randomArtistIndex];
+    console.log("ARTISTNAME:", artistName)
+    const artist = artistName;
+    const description = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    const image = faker.random.image();
+    const price = faker.commerce.price();
+    const genre = genres[Math.floor(Math.random() * genres.length)]._id;
+    const tags = faker.lorem.word();
+    const song_url = faker.internet.url();
+    const s3_object_key = faker.internet.password();
+
+    songData.push({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
+
+    const createdSong = await Song.create(songData);
+
+    await Artist.updateOne(
+      { _id: artistId },
+      { $push: { songs: createdSong._id } }
+    );
+
+    createdSongs.push(createdSong);
+  }
+
+  process.exit(0);
 });
