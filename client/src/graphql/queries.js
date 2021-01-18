@@ -67,6 +67,7 @@ export const listSongs = /* GraphQL */ `
         artist
         description
         image
+        likes
         price
         genre {
           id
