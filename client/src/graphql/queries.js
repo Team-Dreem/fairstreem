@@ -70,14 +70,11 @@ export const listSongs = /* GraphQL */ `
         price
         genre {
           id
-          _id
           name
           createdAt
           updatedAt
         }
         tags
-        song_url
-        s3_object_key
         createdAt
         updatedAt
       }

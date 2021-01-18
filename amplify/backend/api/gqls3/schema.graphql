@@ -1,18 +1,37 @@
-type Genre @model {
-  _id: ID
-  name: String
-}
-
 type Song @model {
   id: ID!
+  artistID: ID!
+  artist: String!
   title: String!
-  artist: String
   description: String
   image: String
   price: Float
-  genre: Genre
+  genre: Genre @connection
   tags: [String]
-  song_url: String
-  s3_object_key: String
+  filePath: String!
+  likes: Int!
+}
+
+type Genre @model {
+  id: ID!
+  name: String!
+}
+
+type Artist @model {
+  id: ID!
+  avatar: String
+  artistName: String!
+  email: String!
+  password: String!
+}
+
+type User @model {
+  id: ID!
+  avatar: String
+  username: String!
+  firstName: String
+  lastName: String
+  email: String!
+  password: String!
 }
 

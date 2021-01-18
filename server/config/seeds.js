@@ -34,6 +34,8 @@ db.once("open", async () => {
       tags: "indie",
       song_url: "empty",
       s3_object_key: "empty",
+      filePath: "fake_url",
+      likes: 6,
     },
     {
       title: "Wild Eyes",
@@ -46,6 +48,8 @@ db.once("open", async () => {
       tags: "outlaw",
       song_url: "empty",
       s3_object_key: "empty",
+      filePath: "fake_url",
+      likes: 6,
     },
     {
       title: "El Toro",
@@ -58,6 +62,8 @@ db.once("open", async () => {
       tags: "outlaw",
       song_url: "empty",
       s3_object_key: "empty",
+      filePath: "fake_url",
+      likes: 6,
     },
   ]);
 
@@ -151,7 +157,7 @@ db.once("open", async () => {
       Math.random() * createdArtists.ops.length
     );
     const { artistName, _id: artistId } = createdArtists.ops[randomArtistIndex];
-    console.log("ARTISTNAME:", artistName)
+    console.log("ARTISTNAME:", artistName);
     const artist = artistName;
     const description = faker.lorem.words(Math.round(Math.random() * 20) + 1);
     const image = faker.random.image();
@@ -160,10 +166,24 @@ db.once("open", async () => {
     const tags = faker.lorem.word();
     const song_url = faker.internet.url();
     const s3_object_key = faker.internet.password();
+    const filePath = faker.internet.url();
+    const likes = faker.random.number(Math.round(Math.random() * 20) + 1);
 
     // songData.push({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
 
-    const createdSong = await Song.create({ title, artist, description, image, price, genre, tags, song_url, s3_object_key });
+    const createdSong = await Song.create({
+      title,
+      artist,
+      description,
+      image,
+      price,
+      genre,
+      tags,
+      song_url,
+      s3_object_key,
+      filePath,
+      likes
+    });
 
     await Artist.updateOne(
       { _id: artistId },

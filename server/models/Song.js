@@ -40,6 +40,14 @@ const songSchema = new Schema({
   s3_object_key: {
     type: String,
   },
+  filePath: {
+    type: String,
+    required: true,
+  },
+  likes: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Song = mongoose.model("Song", songSchema);

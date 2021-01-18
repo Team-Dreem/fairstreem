@@ -1,5 +1,5 @@
 //Bucket Configurations
-var bucketName = 'fairstreem';
+var bucketName = 'amplify-fairstreem-dev-181839-deployment';
 var bucketRegion = 'us-east-2';
 var IdentityPoolId = 'us-east-2:91d5b882-7c85-4c6a-a2ac-a786c400389d';
 

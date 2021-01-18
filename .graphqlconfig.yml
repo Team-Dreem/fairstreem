@@ -1,6 +1,6 @@
 projects:
   gqls3:
-    schemaPath: client/src/graphql/schema.json
+    schemaPath: amplify/backend/api/gqls3/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:
@@ -11,3 +11,6 @@ projects:
         generatedFileName: ''
         docsFilePath: >-
           /Users/jwj/Desktop/Desktop-Folders/projects/fairstreem/client/src/graphql
+extensions:
+  amplify:
+    version: 3

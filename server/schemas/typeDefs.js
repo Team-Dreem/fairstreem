@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type Genre {
@@ -15,6 +15,10 @@ const typeDefs = gql`
     price: Float
     genre: Genre
     tags: [String]
+    song_url: String
+    s3_object_key: String
+    filePath: String!
+    likes: Int!
   }
 
   type Order {
@@ -25,7 +29,7 @@ const typeDefs = gql`
 
   type Checkout {
     session: ID
-  } 
+  }
 
   type User {
     _id: ID
@@ -66,10 +70,30 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(username: String!, firstName: String, lastName: String, email: String!, password: String!): Auth
+    addUser(
+      username: String!
+      firstName: String
+      lastName: String
+      email: String!
+      password: String!
+    ): Auth
     addOrder(songs: [ID]!): Order
-    updateUser(username: String, firstName: String, lastName: String, email: String, password: String): User
-    updateSong(_id: ID!, name: String, description: String, image: String, price: Int, genre: String, tags: [String]): Song
+    updateUser(
+      username: String
+      firstName: String
+      lastName: String
+      email: String
+      password: String
+    ): User
+    updateSong(
+      _id: ID!
+      name: String
+      description: String
+      image: String
+      price: Int
+      genre: String
+      tags: [String]
+    ): Song
     login(email: String!, password: String!): Auth
   }
 `;
