@@ -9,6 +9,9 @@ export const UPDATE_CART_QUANTITY = 'UPDATE_CART_QUANTITY';
 export const CLEAR_CART = 'CLEAR_CART';
 export const TOGGLE_CART = 'TOGGLE_CART';
 
+export const CREATE_CHAMPION = 'CREATE_CHAMPION';
+export const S3_SIGN = 'S3_SIGN';
+
 // With these three actions, we're defining how three parts of our state will be maintained and updated:
 
 //UPDATE_SONGS is used by the SongList component. Right now, we're getting all of our song data from the server, and Apollo caches the results. This is great for performance, but it also means we have to go through Apollo every time we want to update that list. The end goal here is to store the data retrieved for songs by Apollo in this global state. This way, we can add offline capabilities later and persist our song data!

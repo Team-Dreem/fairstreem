@@ -1,6 +1,10 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  type Subscription {
+    userAdded: User!
+  }
+
   type Genre {
     _id: ID
     name: String
@@ -58,6 +62,17 @@ const typeDefs = gql`
     user: User
   }
 
+  type Champion {
+    id: Int!
+    name: String!
+    pictureUrl: String!
+  }
+
+  type S3Payload {
+    signedRequest: String!
+    url: String!
+  }
+
   type Query {
     artists: [Artist]
     genres: [Genre]
@@ -67,9 +82,12 @@ const typeDefs = gql`
     users: [User]
     order(_id: ID!): Order
     checkout(songs: [ID]!): Checkout
+    getChampion(id: Int!): Champion
   }
 
   type Mutation {
+    signS3(filename: String!, filetype: String!): S3Payload!
+    createChampion(name: String!, pictureUrl: String!): Champion!
     addUser(
       username: String!
       firstName: String
@@ -95,6 +113,12 @@ const typeDefs = gql`
       tags: [String]
     ): Song
     login(email: String!, password: String!): Auth
+  }
+
+  schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
   }
 `;
 
