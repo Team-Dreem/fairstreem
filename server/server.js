@@ -7,7 +7,7 @@ const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
 // ******* Tutorial add-ons **********
 const bodyParser = require("body-parser");
-const fileRoutes = require("./utils/file-upload");
+const fileRoutes = require("./routes/file-upload");
 
 // ************************************
 
@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // ******* Tutorial add-ons **********
+app.use(bodyParser.json()); // use od body parser to get values from get req
 app.use("/api/v1/", fileRoutes);
 // ************************************
 
@@ -45,3 +46,4 @@ db.once('open', () => {
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
+

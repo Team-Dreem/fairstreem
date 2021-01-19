@@ -1,13 +1,13 @@
-const router = require('express').Router();
+// const router = require('express').Router();
 
-const apiRoutes = require('./api-routes');
+// const apiRoutes = require('./api-routes');
 
-//designates url prefixes and routes
-router.use('/api', apiRoutes);
+// //designates url prefixes and routes
+// router.use('/api', apiRoutes);
 
 
-router.use((req, res) => {
-  res.status(404).end();
-});
+// router.use((req, res) => {
+//   res.status(404).end();
+// });
 
-module.exports = router;
+// module.exports = router;

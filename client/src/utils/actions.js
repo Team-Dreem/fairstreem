@@ -9,8 +9,6 @@ export const UPDATE_CART_QUANTITY = 'UPDATE_CART_QUANTITY';
 export const CLEAR_CART = 'CLEAR_CART';
 export const TOGGLE_CART = 'TOGGLE_CART';
 
-export const CREATE_CHAMPION = 'CREATE_CHAMPION';
-export const S3_SIGN = 'S3_SIGN';
 
 // With these three actions, we're defining how three parts of our state will be maintained and updated:
 

@@ -33,26 +33,6 @@ function App() {
     updateFile(fileForUpload || value)
   }
 
-  // upload the image to S3 and then save it in the GraphQL API
-  async function createSong() {
-    if (file) {
-      const extension = file.name.split(".")[1]
-      const { type: mimeType } = file
-      const key = `images/${uuid()}${songName}.${extension}`      
-      const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`
-      const inputData = { name: songName , image: url }
-
-      try {
-        await Storage.put(key, file, {
-          contentType: mimeType
-        })
-        await API.graphql(graphqlOperation(CreateSong, { input: inputData }))
-      } catch (err) {
-        console.log('error: ', err)
-      }
-    }
-  }
-
   return (
     <div style={styles.container}>
       <input
