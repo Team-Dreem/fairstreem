@@ -20,6 +20,8 @@ const [state, dispatch] = useStoreContext();
 const [createChampion] = useMutation(CREATE_CHAMPION);
 const [S3Sign] = useMutation(S3_SIGN);
 
+useEffect(() => )
+
   onDrop = async files => {
     this.setState({ file: files[0] });
   };

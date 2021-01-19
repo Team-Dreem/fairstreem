@@ -8,6 +8,8 @@ import {
   UPDATE_CART_QUANTITY,
   CLEAR_CART,
   TOGGLE_CART,
+  CREATE_CHAMPION,
+  S3_SIGN,
 } from "./actions";
 
 import { useReducer } from "react";
