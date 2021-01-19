@@ -5,6 +5,11 @@ const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const db = require('./config/connection');
+// ******* Tutorial add-ons **********
+const bodyParser = require("body-parser");
+const fileRoutes = require("./utils/file-upload");
+
+// ************************************
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -12,12 +17,16 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: authMiddleware
-});
+})
 
 server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// ******* Tutorial add-ons **********
+app.use("/api/v1/", fileRoutes);
+// ************************************
 
 // Serve up static assets
 app.use('/images', express.static(path.join(__dirname, '../client/images')));
